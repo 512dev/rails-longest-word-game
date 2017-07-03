@@ -1,10 +1,14 @@
-<h1>Welcome to the Longest Word game!</h1>
-<h3>Make the longest word you can out of the following letters:</h3>
-<ul>
-  <%@grid.each do |l| %>
-	<li><%= l %></li>
-	<% end %>
-</ul>
+<div class="card center">
+	<h1>Welcome to the Longest Word game!</h1>
+	<h3>Make the longest word you can out of the following letters:</h3>
+</div>
+<div class="card center">
+	<ul class = "list-inline">
+	  <%@grid.each do |l| %>
+		<li><%= l %></li>
+		<% end %>
+	</ul>
+</div>
 
 <form action="/score" method="POST">
  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>

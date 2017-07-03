@@ -1,12 +1,10 @@
 class LongestwordController < ApplicationController
-  
   ALPHABET = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]
-  
+
   def game
     @grid = generate_grid(params[:size])
     @alphabet = ALPHABET
   end
-
 
   def generate_grid(grid_size)
     grid = []
@@ -32,17 +30,17 @@ class LongestwordController < ApplicationController
     attempt_upcase = attempt.upcase
 
     if File.read('/usr/share/dict/words').upcase.split("\n").include?(attempt_upcase)
-      result_hash[:translation] = translation_hash["outputs"][0]["output"]
-      result_hash[:message] = "well done"
-      result_hash[:score] = 10 + attempt.length + (start_time - end_time)
+      result_hash[:translation] = translation_hash['outputs'][0]['output']
+      result_hash[:message] = 'well done'
+      result_hash[:score] = 100 + attempt.length - (end_time - start_time)
     else
       result_hash[:score] = 0
       result_hash[:translation] = nil
-      result_hash[:message] = "not an english word"
+      result_hash[:message] = 'not an english word'
     end
     attempt_upcase.each_char do |letter|
       if unique?(letter, grid) == false
-        result_hash[:message] = "not in the grid"
+        result_hash[:message] = 'not in the grid'
         result_hash[:score] = 0
       end
     end
@@ -51,7 +49,8 @@ class LongestwordController < ApplicationController
 
   def score
     end_time = Time.now.to_i
-    @result = run_game(params[:attempt], params[:grid], params[:time].to_i, end_time)
+    @attempt = params[:attempt]
+    @result = run_game(@attempt, params[:grid], params[:time].to_i, end_time)
   end
 
   def home
