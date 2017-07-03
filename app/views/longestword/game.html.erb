@@ -1,0 +1,16 @@
+<h1>Welcome to the Longest Word game!</h1>
+<h3>Make the longest word you can out of the following letters:</h3>
+<ul>
+  <%@grid.each do |l| %>
+	<li><%= l %></li>
+	<% end %>
+</ul>
+
+<form action="/score" method="POST">
+ <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <label for="size">Your Word: </label>
+  <input type="hidden" name="time" value="<%= Time.now.to_i %>">
+  <input type="hidden" name="grid" value="<%=@grid%> ">
+  <input type="text" id="attempt" name="attempt">
+  <input type="submit" value="Guess!">
+</form>
